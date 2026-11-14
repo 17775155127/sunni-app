@@ -1,16 +1,18 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import { templatesData } from '@/data/templates';
 
-// 重点：直接从外面接收 id
-export default function TemplateFormPage({ id }: { id: string }) {
+export default function TemplateFormPage() {
+  const params = useParams();
+  const id = params?.id as string;
+  
   const template = templatesData.find((t) => t.id === id);
   
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [showResult, setShowResult] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // 1. 读取本地缓存
   useEffect(() => {
     const saved = localStorage.getItem(`draft_${id}`);
     if (saved) {
@@ -19,14 +21,13 @@ export default function TemplateFormPage({ id }: { id: string }) {
     setIsLoaded(true);
   }, [id]);
 
-  // 2. 自动保存本地缓存
   useEffect(() => {
     if (isLoaded && formData) {
       localStorage.setItem(`draft_${id}`, JSON.stringify(formData));
     }
   }, [formData, isLoaded, id]);
 
-  if (!template) return <div className="p-10 text-center text-gray-500">模板不存在</div>;
+  if (!template) return <div className="p-10 text-center text-gray-500">模板不存在 (ID: {id})</div>;
 
   const isFormValid = template.fields.every((f) => formData[f.key]?.trim());
 
