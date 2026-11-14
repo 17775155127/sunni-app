@@ -1,3 +1,10 @@
+import { templatesData } from '@/data/templates';
+
+export async function generateStaticParams() {
+  return templatesData.map((tpl) => ({
+    id: tpl.id,
+  }));
+}
 'use client';
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
