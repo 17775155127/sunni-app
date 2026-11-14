@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { templatesData } from '@/data/templates';
 
 export default function Home() {
@@ -15,7 +16,9 @@ export default function Home() {
       <div className="bg-white p-6 pb-8 rounded-b-3xl shadow-sm">
         <div className="flex justify-between items-center mb-6">
           <span className="font-bold text-xl text-blue-600">速起</span>
-          <button className="text-sm text-gray-500 border border-gray-200 px-3 py-1 rounded-full">登录/注册</button>
+          <a href="/library" className="text-sm text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full font-medium hover:bg-blue-100 transition">
+            获取无水印版
+          </a>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">海量文书模板，智能在线生成</h1>
         <p className="text-gray-500 text-sm mb-6">租房·职场·学业·生活</p>
@@ -28,13 +31,12 @@ export default function Home() {
       <div className="px-4 mt-6">
         <div className="grid grid-cols-4 gap-3">
           {categories.map((cat) => (
-            /* 改用 a 标签 */
-            <a href={`/library?category=${encodeURIComponent(cat.name)}`} key={cat.name} className="flex flex-col items-center justify-center p-3 bg-white rounded-xl shadow-sm cursor-pointer hover:bg-gray-50 transition">
+            <Link href={`/library?category=${encodeURIComponent(cat.name)}`} key={cat.name} className="flex flex-col items-center justify-center p-3 bg-white rounded-xl shadow-sm cursor-pointer hover:bg-gray-50 transition">
               <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xl mb-2 ${cat.color}`}>
                 {cat.icon}
               </div>
               <span className="text-xs text-gray-700">{cat.name}</span>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
@@ -42,12 +44,11 @@ export default function Home() {
       <div className="px-4 mt-8">
         <div className="flex justify-between items-center mb-4">
           <h2 className="font-bold text-gray-900">热门模板</h2>
-          <a href="/library" className="text-sm text-gray-400 hover:text-blue-500">更多 &gt;</a>
+          <Link href="/library" className="text-sm text-gray-400 hover:text-blue-500">更多 &gt;</Link>
         </div>
         <div className="space-y-3">
           {hotTemplates.map((tpl) => (
-            /* 改用 a 标签 */
-            <a href={`/templates/${tpl.id}`} key={tpl.id} className="bg-white p-4 rounded-xl shadow-sm flex justify-between items-center cursor-pointer hover:shadow-md transition block">
+            <Link href={`/templates/${tpl.id}`} key={tpl.id} className="bg-white p-4 rounded-xl shadow-sm flex justify-between items-center cursor-pointer hover:shadow-md transition block">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <h3 className="font-bold text-gray-900">{tpl.name}</h3>
@@ -58,7 +59,7 @@ export default function Home() {
                 <p className="text-xs text-gray-500">{tpl.desc}</p>
               </div>
               <span className="text-gray-300 text-xl">›</span>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
