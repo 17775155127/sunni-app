@@ -14,7 +14,7 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50 pb-10 max-w-md mx-auto border-x border-gray-200 shadow-xl">
       <div className="bg-white p-6 pb-8 rounded-b-3xl shadow-sm">
         <div className="flex justify-between items-center mb-6">
-          <span className="font-bold text-xl text-blue-600">速拟</span>
+          <span className="font-bold text-xl text-blue-600">速起</span>
           <button className="text-sm text-gray-500 border border-gray-200 px-3 py-1 rounded-full">登录/注册</button>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">海量文书模板，智能在线生成</h1>
