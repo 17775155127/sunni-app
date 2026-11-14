@@ -12,7 +12,6 @@ export default function TemplateFormPage() {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [showResult, setShowResult] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showQrcode, setShowQrcode] = useState(false); // 新增：控制二维码弹窗
 
   useEffect(() => {
     const saved = localStorage.getItem(`draft_${id}`);
@@ -256,22 +255,12 @@ export default function TemplateFormPage() {
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                 文档已生成
               </div>
-              
-              {/* 修改后的按钮组 */}
-              <div className="flex gap-2">
-                <button 
-                  onClick={() => window.print()} 
-                  className="bg-gray-100 text-gray-700 px-4 py-2.5 rounded-xl transition text-sm font-medium flex items-center gap-2 hover:bg-gray-200"
-                >
-                  带水印打印
-                </button>
-                <button 
-                  onClick={() => setShowQrcode(true)} 
-                  className="bg-gray-900 text-white px-5 py-2.5 rounded-xl shadow-md hover:bg-black transition text-sm font-medium flex items-center gap-2"
-                >
-                  <span>✨</span> 获取无水印版
-                </button>
-              </div>
+              <button 
+                onClick={() => window.print()} 
+                className="bg-gray-900 text-white px-5 py-2.5 rounded-xl shadow-md hover:bg-black transition text-sm font-medium flex items-center gap-2"
+              >
+                <span>🖨️</span> 导出/打印 PDF
+              </button>
             </div>
             
             {renderDocument()}
@@ -286,29 +275,6 @@ export default function TemplateFormPage() {
           </div>
         )}
       </main>
-
-      {/* 二维码解锁弹窗 */}
-      {showQrcode && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm print:hidden">
-          <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center relative shadow-2xl animate-in zoom-in-95 duration-200">
-            <button 
-              onClick={() => setShowQrcode(false)} 
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-xl"
-            >
-              ✕
-            </button>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">获取无水印 Word/PDF</h3>
-            <p className="text-sm text-gray-500 mb-6">免费版带有水印，扫码添加客服即可获取纯净无水印原件</p>
-            
-            <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 mb-6 flex justify-center">
-              <img src="/qrcode.png" alt="微信二维码" className="w-48 h-48 rounded-lg object-cover shadow-sm bg-white" />
-            </div>
-            
-            <p className="text-xs text-gray-400">扫码后请发送：<span className="font-bold text-gray-600">{template.name}</span></p>
-          </div>
-        </div>
-      )}
-
     </div>
   );
 }
